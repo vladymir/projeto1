@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title  %}Cadastre-se{% endblock %}
+{% block head %}Cadastre-se{% endblock%}
+{% block content %}
+<form method="post" action=".">
+    {{ form.as_p }}
+    <input type="submit" value="registrar" />
+</form>
+{% endblock %}

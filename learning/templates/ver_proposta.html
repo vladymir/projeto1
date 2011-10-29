@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block content %}
+   <h1>Proposta</h1>
+           <br> Descricao da proposta</br>
+            O que eh a proposta: {{ proposta.o_que }}<br>
+            Recompensas: {{ proposta.recompensas }}<br>
+            Mais informacoes sobre o projeto: {{ proposta.mais_infos }}<br>
+            Categoria: {{ proposta.categoria }}<br>
+            Qual a meta: {{ proposta.quanto }}<br>
+            Status: {{ proposta.status }}<br>
+            
+{% endblock %}
