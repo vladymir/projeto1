@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}KickStart | 
+{% endblock %}
+{% block content %}
+   <h1>Bem vindo ao kickstart</h1>
+    {% if user.username %}
+        <p>Bem vindo {{ user.username }}!
+        	Você pode submeter uma proposta de projeto clicando no botão abaixo.
+            <a href="/proposta/new" class="signup_button round">Criar Projeto</a>
+            <br>Caso queira verificar alguma proposta submetida anteriormente, basta
+            clicar em <a href="/perfil/"><em>Meu Perfil</em></a></p>
+    {% else %}
+        <p>É necessário entrar em sua conta para acessar nosso serviço.
+        <br><br>Caso ainda não tenha cadastro clique no botão abaixo
+        para criar o seu.</p>
+        <a href="/registrar" class="signup_button round">Cadastre-se agora!</a>
+    {% endif %}
+{% endblock %}
+</body>
+</html>

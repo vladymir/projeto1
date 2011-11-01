@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from learning.autenticacao.models import Proposta
+from kickstart.autenticacao.models import Proposta
 
 class RegistroForm(forms.Form):
     nome_usuario = forms.CharField(label=u'Nome de Usuario', max_length=30)
@@ -11,10 +11,15 @@ class RegistroForm(forms.Form):
     )
 
     senha2 = forms.CharField(
-            label=u'Senha (de novo)',
+            label=u'Senha (confirmação)',
             widget=forms.PasswordInput()
     )
 
+class LoginForm(forms.Form):
+    nome_usuario = forms.CharField(label=u'Nome do usuario', max_length=30)
+    senha = forms.CharField(label=u'Senha',
+                            widget=forms.PasswordInput()
+                            )
 class PropostaForm(forms.ModelForm):
     class Meta:
         model = Proposta

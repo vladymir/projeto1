@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import patterns, include, url
-from learning.autenticacao import views
+from kickstart.autenticacao import views
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 from django.contrib.auth.views import login, logout

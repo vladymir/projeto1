@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+	<title>KickStart - Ponta-pe Inicial | {% block title %} {% endblock %}</title>
+	{% block style %}
+	{% load static %}
+	<link href="{% get_static_prefix %}estilo.css" type="text/css" 
+	rel="stylesheet" media="screen" />
+	{% endblock style %}
+</head>
+<body>
+	<div class="container">
+		<header> 
+			<nav class="round">
+			<ul>
+				<li><a href="/">Inicio</a> |</li>
+				<li>{% if user.is_authenticated %} 
+					Bem vindo {{user.username }} (<a href="/logout">logout</a>) 
+						| <a href="/proposta/new">Criar Projeto</a>
+						| <a href="/perfil/">Meu Perfil</a> 
+					{% else %} 
+						<a href="/login/">Entrar</a>
+						| <a href="/registrar/">Cadastrar</a> 
+					{% endif %}
+				</li>
+			</ul>
+			</nav> 
+		</header>
+		
+		<h1>{% block head %} {% endblock %}</h1>
+		<section class="round"> {% block content %}{% endblock %} </section>
+		<footer>
+			<nav class="round">
+				<a href="/">Ajuda</a>
+				</br>
+				<a href="/admin">Administrador</a>
+			</nav>
+		</footer>
+	</div>
+</body>
+
+
+</html>
