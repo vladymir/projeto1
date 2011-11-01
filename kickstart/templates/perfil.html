@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load url from future %}
 
+{% block head %} Bem vindo ao seu Perfil {% endblock %}
 {% block content %}
-   <h1>Bem vindo ao seu Perfil</h1>
-           <br> Lista de propostas enviadas:</br>
-            {% for proposta in propostas %}
-            <li> <a href='/propostas/{{ proposta.id }}'>{{ proposta }} </li>
-            {% endfor %}
+	<br> Lista de propostas enviadas:</br>
+	<ul>
+		{% for proposta in propostas %}
+		<li> <a href='/propostas/{{ proposta.id }}'>{{ proposta }} </li>
+		{% endfor %}
+	</ul>
 {% endblock %}

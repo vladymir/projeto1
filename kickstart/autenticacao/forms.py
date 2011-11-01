@@ -1,3 +1,5 @@
+#coding: utf-8
+
 from django import forms
 from django.forms import ModelForm
 from kickstart.autenticacao.models import Proposta
@@ -11,7 +13,7 @@ class RegistroForm(forms.Form):
     )
 
     senha2 = forms.CharField(
-            label=u'Senha (confirmação)',
+            label=u'Senha (confirmacao)',
             widget=forms.PasswordInput()
     )
 

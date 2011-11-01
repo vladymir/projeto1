@@ -11,24 +11,25 @@
 	rel="stylesheet" media="screen" />
 	{% endblock style %}
 </head>
+<header> 
+	<nav class="round">
+	<ul>
+		<li><a href="/">Inicio</a> |</li>
+		<li>{% if user.is_authenticated %} 
+			Bem vindo {{user.username }} (<a href="/logout">logout</a>) 
+				| <a href="/proposta/new">Criar Projeto</a>
+				| <a href="/perfil/">Meu Perfil</a> 
+			{% else %} 
+				<a href="/login/">Entrar</a>
+				| <a href="/registrar/">Cadastrar</a> 
+			{% endif %}
+		</li>
+	</ul>
+	</nav> 
+</header>
 <body>
 	<div class="container">
-		<header> 
-			<nav class="round">
-			<ul>
-				<li><a href="/">Inicio</a> |</li>
-				<li>{% if user.is_authenticated %} 
-					Bem vindo {{user.username }} (<a href="/logout">logout</a>) 
-						| <a href="/proposta/new">Criar Projeto</a>
-						| <a href="/perfil/">Meu Perfil</a> 
-					{% else %} 
-						<a href="/login/">Entrar</a>
-						| <a href="/registrar/">Cadastrar</a> 
-					{% endif %}
-				</li>
-			</ul>
-			</nav> 
-		</header>
+		
 		
 		<h1>{% block head %} {% endblock %}</h1>
 		<section class="round"> {% block content %}{% endblock %} </section>

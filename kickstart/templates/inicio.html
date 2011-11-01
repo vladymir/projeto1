@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}KickStart | 
-{% endblock %}
+{% block title %}KickStart | {% endblock %}
+{% block head %}Bem vindo ao Kickstart {% endblock %}
 {% block content %}
-   <h1>Bem vindo ao kickstart</h1>
     {% if user.username %}
         <p>Bem vindo {{ user.username }}!
         	Você pode submeter uma proposta de projeto clicando no botão abaixo.
