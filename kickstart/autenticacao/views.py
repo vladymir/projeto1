@@ -1,6 +1,6 @@
 # Create your views here.
 from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404
 from autenticacao.forms import *
 from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
@@ -11,10 +11,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
 def inicio(request):
-    template = get_template('inicio.html')
     variables = Context({'user': request.user})
-    output = template.render(variables)
-    return HttpResponse(output)
+    return render_to_response('inicio.html', variables)
 
 @login_required
 def pagina_ver_proposta(request, identificador):
@@ -25,19 +23,15 @@ def pagina_ver_proposta(request, identificador):
     
     user = request.user
     proposta = user.proposta_set.get(id=ident)
-    template = get_template('ver_proposta.html')
     variables = Context({'user': user, 'proposta' : proposta})
-    output = template.render(variables)
-    return HttpResponse(output)
+    return render_to_response('ver_proposta.html', variables)
     
 def pagina_perfil(request):
     if request.user.is_authenticated():
         user = request.user
         propostas = user.proposta_set.all()
-        template = get_template('perfil.html')
         variables = Context({ 'user': user , 'propostas':propostas })
-        output = template.render(variables)
-        return HttpResponse(output)
+        return render_to_response('perfil.html', variables)
     else:
         return HttpResponseRedirect('/registrar/')
     
@@ -60,10 +54,7 @@ def pagina_login(request):
     else:
         form = LoginForm()
         variables = RequestContext(request, { 'form': form })
-        return render_to_response(
-                    'login.html',
-                    variables
-                    )
+        return render_to_response('login.html', variables)
         
 def pagina_proposta(request):
     if request.user.is_authenticated():
@@ -79,10 +70,7 @@ def pagina_proposta(request):
         else:
             form = PropostaForm()
             variables = RequestContext(request, { 'form': form })
-            return render_to_response(
-                    'proposta.html',
-                    variables
-                    )
+            return render_to_response('proposta.html', variables)
     else:
         return HttpResponseRedirect('/registrar/')
 
@@ -110,9 +98,9 @@ def pagina_registrar(request):
         else:
             form = RegistroForm()
             variables = RequestContext(request, { 'form': form })
-            return render_to_response(
-                    'registrar.html',
-                    variables
-                    )
+            return render_to_response('registrar.html', variables)
     else:
         return HttpResponseRedirect('/')
+    
+def ajuda(request):
+    return render_to_response('ajuda.html')

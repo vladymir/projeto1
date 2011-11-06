@@ -23,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^perfil/$', views.pagina_perfil),
     url(r'^proposta/new/$', views.pagina_proposta),
     url(r'^propostas/(\d+)/$', views.pagina_ver_proposta),
+    url(r'^ajuda/', views.ajuda),
 )
