@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
-
+{% block head %}Prosposta {{proposta.o_que}} {% endblock %}
 {% block content %}
-   <h1>Proposta</h1>
            <br> Descricao da proposta</br>
             O que eh a proposta: {{ proposta.o_que }}<br>
             Recompensas: {{ proposta.recompensas }}<br>
