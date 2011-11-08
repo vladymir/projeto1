@@ -28,7 +28,7 @@
 				<li><a href="/">Inicio</a> | </li>
 				<li>
 					{% if user.is_authenticated %} 
-					Bem vindo {{user.username }} (<a href="/logout">logout</a>) 
+					Bem vindo {{user.username }} (<a href="/logout">sair</a>) 
 					| <a href="/proposta/new">Criar Projeto</a> 
 					| <a href="/perfil/">Meu Perfil</a> 
 					{% else %} 
@@ -42,8 +42,9 @@
 	<div class="big_round_box">
 		<p class="description">{% block content %}{% endblock %}</p>
 	</div>
+	{% block extra %} {% endblock %}
+	
 	<div style="clear: both"></div>
-
 	<div id="bottom">
 		<div id="menu_bottom_list">
 			<div class="menu_bottom">

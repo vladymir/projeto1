@@ -24,4 +24,4 @@ class LoginForm(forms.Form):
 class PropostaForm(forms.ModelForm):
     class Meta:
         model = Proposta
-        exclude = ('status','usuario_criador',)
+        exclude = ('status','usuario_criador','data_envio',)

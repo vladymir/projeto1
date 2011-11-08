@@ -1,3 +1,5 @@
+#coding: utf-8
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -33,6 +35,7 @@ class Proposta(models.Model):
     quanto = models.IntegerField()
     como_descobriu = models.CharField(max_length=100)
     status = models.CharField(max_length=1, choices=PROPOSTA_STATUS)
+    data_envio = models.DateTimeField("data de publicação")
 
     def __unicode__(self):
         return self.o_que

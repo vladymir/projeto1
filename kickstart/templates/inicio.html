@@ -14,7 +14,19 @@
         <br><br>Caso ainda não tenha cadastro clique no botão abaixo
         para criar o seu.</p>
         <a href="/registrar" class="signup_button round">Cadastre-se agora!</a>
-    {% endif %}
+    {% endif %}	
 {% endblock %}
-</body>
-</html>
+{% block extra %}
+<div id="content">
+	<div id="first_content">	
+		{% for proposta in propostas %}
+		<div class="box">
+			<div class="text_box">
+				<p class="title">{{proposta}}</p>
+				<p class="description"> {{proposta.mais_infos}} </p>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

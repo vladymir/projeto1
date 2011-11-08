@@ -6,12 +6,17 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.template.loader import *
 from django.contrib.auth import logout, authenticate, login
-from autenticacao.models import Proposta, Usuario
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+#from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
+from kickstart.autenticacao.forms import LoginForm, PropostaForm, RegistroForm
+import datetime
+
 def inicio(request):
-    variables = Context({'user': request.user})
+    qnt_propst_listadas = 5
+    propostas = request.user.proposta_set.all()
+    ultimas_propostas = propostas.order_by('data_envio')[:qnt_propst_listadas]
+    variables = Context({'user': request.user, 'propostas' : ultimas_propostas})
     return render_to_response('inicio.html', variables)
 
 @login_required
@@ -22,6 +27,7 @@ def pagina_ver_proposta(request, identificador):
         raise Http404()
     
     user = request.user
+    
     proposta = user.proposta_set.get(id=ident)
     variables = Context({'user': user, 'proposta' : proposta})
     return render_to_response('ver_proposta.html', variables)
@@ -64,6 +70,7 @@ def pagina_proposta(request):
                 novaProposta = propostaform.save(commit=False)
                 novaProposta.usuario_criador = request.user
                 novaProposta.status = 'P'
+                novaProposta.data_envio = datetime.date.today()
                 novaProposta.save()
             return HttpResponseRedirect('/inicio/')
             #return HttpResponse('Proposta Submetida com sucesso.')
@@ -103,4 +110,5 @@ def pagina_registrar(request):
         return HttpResponseRedirect('/')
     
 def ajuda(request):
-    return render_to_response('ajuda.html')
+    variables = Context({'user': request.user})
+    return render_to_response('ajuda.html', variables)
