@@ -10,11 +10,12 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from kickstart.autenticacao.forms import LoginForm, PropostaForm, RegistroForm
+from kickstart.autenticacao.models import Proposta
 import datetime
 
 def inicio(request):
     qnt_propst_listadas = 5
-    propostas = request.user.proposta_set.all()
+    propostas = Proposta.objects.all()
     ultimas_propostas = propostas.order_by('data_envio')[:qnt_propst_listadas]
     variables = Context({'user': request.user, 'propostas' : ultimas_propostas})
     return render_to_response('inicio.html', variables)
