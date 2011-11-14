@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block head %}Mensagem {% endblock %}
+{% block content %}
+           <br> Mensagem</br>
+            De: {{ mensagem.remetente }}<br>
+            Mensagem: {{ mensagem.mensagem}}<br>
+{% endblock %}

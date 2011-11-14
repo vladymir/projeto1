@@ -72,6 +72,6 @@ class Mensagem(models.Model):
     mensagem = models.TextField()
 
     def __unicode__(self):
-        return self.remetente.email
+        return 'Remetente: ' + self.remetente.email
 
 # Create your models here.

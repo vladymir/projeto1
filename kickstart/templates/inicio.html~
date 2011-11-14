@@ -24,7 +24,7 @@
                 <div class="box">
                         <div class="text_box">
                                 <p class="title">{{proposta}}</p>
-                                <p class="description"> R$ {{proposta.quanto}} </p>
+                                <p class="description"> {{proposta.mais_infos}} </p>
                         </div>
                 </div>
                 {% endfor %}

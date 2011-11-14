@@ -148,7 +148,6 @@ h4 {
 #content {
 	width: 100%;
 	background-color: #fbfbfb;
-        margin-left: 10em;
 }
 
 #first_content{

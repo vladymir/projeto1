@@ -22,7 +22,7 @@ class LoginForm(forms.Form):
                             widget=forms.PasswordInput()
                             )
 class PropostaForm(forms.ModelForm):
-    como_descobriu = forms.CharField(max_length=100, required=False)
+    como_descobriu = CharField(max_length=100, required=False)
     class Meta:
         model = Proposta
         exclude = ('status','usuario_criador','data_envio',)

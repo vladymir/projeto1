@@ -23,7 +23,7 @@ def inicio(request):
 @login_required
 def pagina_mensagem(request):
     user = request.user
-    inbox = Inbox.objects.get(usuario_criador=user)
+    inbox = user.inbox_set.get(usuario_criador=user)
     mensagens = inbox.mensagem_set.all()
     variables = Context({'user': user, 'mensagens': mensagens})
     return render_to_response('mensagens.html', variables)

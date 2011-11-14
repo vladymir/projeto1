@@ -31,7 +31,6 @@
 					Bem vindo {{user.username }} (<a href="/logout">sair</a>) 
 					| <a href="/proposta/new">Criar Projeto</a> 
 					| <a href="/perfil/">Meu Perfil</a> 
-                                        | <a href="/mensagens/">Caixa de Mensagens</a>
 					{% else %} 
 					<a href="/login/">Entrar</a> 
 					| <a href="/registrar/">Cadastrar</a> 
