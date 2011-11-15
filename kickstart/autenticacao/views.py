@@ -10,7 +10,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from kickstart.autenticacao.forms import LoginForm, PropostaForm, RegistroForm
-from kickstart.autenticacao.models import Proposta
+from kickstart.autenticacao.models import Proposta, Inbox
 import datetime
 
 def inicio(request):
@@ -20,6 +20,26 @@ def inicio(request):
     variables = Context({'user': request.user, 'propostas' : ultimas_propostas})
     return render_to_response('inicio.html', variables)
 
+@login_required
+def pagina_mensagem(request):
+    user = request.user
+    inbox = Inbox.objects.get(usuario_criador=user)
+    mensagens = inbox.mensagem_set.all()
+    variables = Context({'user': user, 'mensagens': mensagens})
+    return render_to_response('mensagens.html', variables)
+    
+@login_required
+def pagina_ver_mensagem(request, identificador):
+    try:
+        ident = int(identificador)
+    except:
+        raise Http404()
+    user = request.user
+    inbox = user.inbox_set.get(usuario_criador=user)
+    mensagem = inbox.mensagem_set.get(id=ident)
+    variables = Context({'user': user, 'mensagem' : mensagem})
+    return render_to_response('ver_mensagem.html', variables)
+    
 @login_required
 def pagina_ver_proposta(request, identificador):
     try:
@@ -92,6 +112,9 @@ def pagina_registrar(request):
                         password=form.cleaned_data['senha1'],
                         email=form.cleaned_data['email']
                         )
+                inbox = Inbox()
+                inbox.usuario_criador = user
+                inbox.save()
                 user = authenticate(
                         username=form.cleaned_data['nome_usuario'], 
                         password=form.cleaned_data['senha1']

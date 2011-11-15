@@ -24,4 +24,6 @@ urlpatterns = patterns('',
     url(r'^proposta/new/$', views.pagina_proposta),
     url(r'^propostas/(\d+)/$', views.pagina_ver_proposta),
     url(r'^ajuda/', views.ajuda),
+    url(r'^mensagem/(\d+)/$', views.pagina_ver_mensagem),
+    url(r'^mensagens/$', views.pagina_mensagem),
 )

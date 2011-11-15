@@ -59,4 +59,19 @@ class Doacao(models.Model):
 class Comentario(models.Model):
     projeto = models.ForeignKey(Projeto)
     comentario = models.TextField()
+    
+class Inbox(models.Model):
+    usuario_criador = models.ForeignKey(User)
+    
+    def __unicode__(self):
+        return 'Caixa de Entrada'
+
+class Mensagem(models.Model):
+    inbox = models.ForeignKey(Inbox)
+    remetente = models.ForeignKey(User)
+    mensagem = models.TextField()
+
+    def __unicode__(self):
+        return self.remetente.email
+
 # Create your models here.
