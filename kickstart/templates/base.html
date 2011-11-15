@@ -1,58 +1,79 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
-<title>KickStart - Ponta-pe Inicial | {% block title %} {%endblock %}</title>
-{% block style %} {% load static %}
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>KickStart - Ponta-pe Inicial | {% block title %}
+	{%endblock %}</title> {% block style %} {% load static %}
 <link href="{% get_static_prefix %}estilo.css" type="text/css"
-	rel="stylesheet" media="screen" />
-<link href="{% get_static_prefix %}tipografia.css" type="text/css"
 	rel="stylesheet" media="screen" />
 {% endblock style %}
 </head>
-<body id="body">
-	<div id="top_div">
-		<div id="top_content">
-			<div id="logo">
-				<h1>{% block head %} {% endblock %}</h1>
-			</div>
-		</div>
-	</div>
 
-	<div class="menu">
-		<div class="menu_content">
-			<ul>
-				<li><a href="/">Inicio</a> | </li>
-				<li>
-					{% if user.is_authenticated %} 
-					Bem vindo {{user.username }} (<a href="/logout">sair</a>) 
-					| <a href="/proposta/new">Criar Projeto</a> 
-					| <a href="/perfil/">Meu Perfil</a> 
-					{% else %} 
-					<a href="/login/">Entrar</a> 
-					| <a href="/registrar/">Cadastrar</a> 
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h1>
+						<a href="/">Kick<span class="logo_colour">start</span> </a>
+					</h1>
+					<h2>O pontapé inicial para seu projeto!</h2>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+					<!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+					<li><a href="/">Home</a>
+					</li> 
+					{% if user.is_authenticated %}
+						<li><a href="/proposta/new">Criar Projeto</a></li>
+						<li><a href="/perfil/">Meu Perfil</a></li> 
 					{%endif %}
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="big_round_box">
-		<p class="description">{% block content %}{% endblock %}</p>
-	</div>
-	{% block extra %} {% endblock %}
-	
-	<div style="clear: both"></div>
-	<div id="bottom">
-		<div id="menu_bottom_list">
-			<div class="menu_bottom">
-				<a href="/ajuda">Ajuda</a>
-			</div>
-			<div class="menu_bottom">
-				<a href="/admin">Administrador</a>
+					<li><a href="/ajuda"> Ajuda </a>
+					</li>
+				</ul>
 			</div>
 		</div>
+		<div id="site_content">
+			<div class="sidebar">
+				<div class="side_block">
+					
+					<ul>
+					<h4>
+						{% if user.is_authenticated %}
+						<div class="side_header round">
+						Bem vindo {{user.username }}!
+						</div>
+						<li><a href="/logout"><img src="{%get_media_prefix%}sair.png" alt="Sair"/>Sair</a></li>
+						{% else %}
+						<li><a href="/login"><img src="{%get_media_prefix%}entrar.png" alt="Entrar"/>Entrar</a></li>
+						<li><a href="/registrar/"><img src="{%get_media_prefix%}cadastrar.png" alt="Cadastrar"/>Cadastrar</a></li> 
+						{%endif %}
+					</h4>
+					</ul>
+				</div>
+			</div>
+			
+			<div id="content">
+				<div class="big_round_box">
+					<p>{% block content %}{% endblock %}</p>
+				</div>
+				{% block extra %} {% endblock %}
+			</div>
+		</div>
+		<div id="content_footer"></div>
+		<div id="footer">
+			<a href="/admin">Administrador</a>
+		</div>
+	</div>
+	<div style="text-align: center; font-size: 1em;">
+		<a href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a>
+		Design downloaded from <a href="http://www.freewebtemplates.com/">
+			free website templates</a>.
+	</div>
 </body>
 </html>

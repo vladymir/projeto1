@@ -17,16 +17,12 @@
     {% endif %}	
 {% endblock %}
 {% block extra %}
-<div id="content">
-	<div id="first_content">	
-		{% for proposta in propostas %}
-		<div class="box">
-			<div class="text_box">
-				<p class="title">{{proposta}}</p>
-				<p class="description"> {{proposta.mais_infos}} </p>
-			</div>
-		</div>
-		{% endfor %}
+	<h2>Últimos Projetos</h2>
+	{% for proposta in propostas %}
+	<div class="round_box">
+		<p class="title">{{proposta}}</p>
+		<p class="description"> {{proposta.quanto}} </p>
 	</div>
-</div>
+
+	{% endfor %}
 {% endblock %}
