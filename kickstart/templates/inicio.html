@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}KickStart | {% endblock %}
 {% block head %}Bem vindo ao Kickstart {% endblock %}
 {% block content %}
@@ -19,8 +19,16 @@
 {% block extra %}
 	{% for proposta in propostas %}
 	<div class="round_box">
-		<p class="title">{{proposta}}</p>
-		<p class="description"> {{proposta.quanto}} </p>
+		<p class="title"><a href='/propostas/{{ proposta.id }}'>{{ proposta }}</a></p>
+		<img alt="imgProj" src="{%get_media_prefix%}projeto.jpg">
+		<div>
+			<h4>Descrição</h4>
+			<p class="description"> {{proposta.get_resumo}}...</p>
+			<h4>Categoria</h4>
+			<p class="description"> {{proposta.categoria}}</p>
+			<h4>Valor Necessário</h4>
+			<p class="description"> R${{proposta.quanto}},00 </p>
+		</div>
 	</div>
 
 	{% endfor %}

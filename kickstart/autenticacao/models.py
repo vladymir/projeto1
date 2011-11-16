@@ -20,6 +20,7 @@ class Perfil(models.Model):
     sobrenome = models.CharField(max_length=20)
     endereco = models.ForeignKey(Endereco)
     usuario = models.OneToOneField(User)
+    contato = models.CharField(max_length=80)
 
 PROPOSTA_STATUS = (
     ('N', 'Negada'),
@@ -28,17 +29,21 @@ PROPOSTA_STATUS = (
 )
 class Proposta(models.Model):
     usuario_criador = models.ForeignKey(User)
+    titulo = models.CharField(max_length=70)
     o_que = models.CharField(max_length=700)
     recompensas = models.CharField(max_length=1000)
     mais_infos = models.CharField(max_length=700)
     categoria = models.CharField(max_length=50)
     quanto = models.IntegerField()
-    como_descobriu = models.CharField(max_length=100)
+    contato = models.CharField(max_length=80)
     status = models.CharField(max_length=1, choices=PROPOSTA_STATUS)
     data_envio = models.DateTimeField("data de publicação")
 
     def __unicode__(self):
-        return self.o_que
+        return self.titulo
+    
+    def get_resumo(self):
+        return self.o_que[0:120]
 
 class Projeto(models.Model):
     usuario_criador = models.ForeignKey(Usuario)
