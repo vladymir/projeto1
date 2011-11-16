@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% block head %}Prosposta {{proposta.o_que}} {% endblock %}
+{% block head %}Prosposta {{proposta.titulo}} {% endblock %}
 {% block content %}
-           <br> Descricao da proposta</br>
-            O que eh a proposta: {{ proposta.o_que }}<br>
-            Recompensas: {{ proposta.recompensas }}<br>
-            Mais informacoes sobre o projeto: {{ proposta.mais_infos }}<br>
-            Categoria: {{ proposta.categoria }}<br>
-            Qual a meta: {{ proposta.quanto }}<br>
-            Status: {{ proposta.status }}<br>
+            <h4> Descrição do Projeto:</h4> {{ proposta.o_que }}<br>
+            <h4>Recompensas:</h4> {{ proposta.recompensas }}<br>
+            <h4>Mais informações sobre o projeto:</h4> {{ proposta.mais_infos }}<br>
+            <h4>Categoria:</h4> {{ proposta.categoria }}<br>
+            <h4>Capital necessário para iniciar projeto:</h4> {{ proposta.quanto }}<br>
+            <h4>Contato:</h4> {{proposta.contato}}
             
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}KickStart | {% endblock %}
 {% block head %}Bem vindo ao Kickstart {% endblock %}
 {% block content %}
@@ -16,18 +16,20 @@
         <a href="/registrar" class="signup_button round">Cadastre-se agora!</a>
     {% endif %}	
 {% endblock %}
-
 {% block extra %}
-<div id="content">
-        <div id="first_content">        
-                {% for proposta in propostas %}
-                <div class="box">
-                        <div class="text_box">
-                                <p class="title">{{proposta}}</p>
-                                <p class="description"> R$ {{proposta.quanto}} </p>
-                        </div>
-                </div>
-                {% endfor %}
-        </div>
-</div>
+	{% for proposta in propostas %}
+	<div class="round_box">
+		<p class="title"><a href='/propostas/{{ proposta.id }}'>{{ proposta }}</a></p>
+		<img alt="imgProj" src="{%get_media_prefix%}projeto.jpg">
+		<div>
+			<h4>Descrição</h4>
+			<p class="description"> {{proposta.get_resumo}}...</p>
+			<h4>Categoria</h4>
+			<p class="description"> {{proposta.categoria}}</p>
+			<h4>Valor Necessário</h4>
+			<p class="description"> R${{proposta.quanto}},00 </p>
+		</div>
+	</div>
+
+	{% endfor %}
 {% endblock %}

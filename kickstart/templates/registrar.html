@@ -3,7 +3,13 @@
 {% block head %}Cadastre-se{% endblock%}
 {% block content %}
 <form method="post" action=".">{% csrf_token %}
-    {{ form.as_p }}
+   	{% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            <h4>{{ field.label_tag }}:</h4>
+            {{ field }}<br>
+        </div>
+    {% endfor %}
     <input type="submit" value="Registrar" />
 </form>
 {% endblock %}

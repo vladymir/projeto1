@@ -10,8 +10,14 @@
 
 <form method="post" action=".">
 {% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="login" />
+	{% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            <h4>{{ field.label_tag }}:</h4>
+            {{ field }}<br>
+        </div>
+    {% endfor %}
+<input type="submit" value="Entrar" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
