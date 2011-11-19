@@ -1,7 +1,9 @@
 #coding: utf-8
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.db import models
 from django.contrib.auth.models import User
+
 
 class Usuario(User):
     def __unicode__(self):
@@ -80,3 +82,17 @@ class Mensagem(models.Model):
         return self.remetente.email
 
 # Create your models here.
+from kickstart.autenticacao.models import Proposta
+@receiver(post_save, sender=Proposta)
+def my_handler(sender, **kwargs):
+    proposta = kwargs['instance']
+    user = proposta.usuario_criador
+    inbox = Inbox.objects.get(usuario_criador=user.id)
+    if proposta.status=='A':
+        mensagem = Mensagem.objects.create(inbox_id=inbox.id,remetente_id=1 ,
+                                        mensagem='Sua proposta foi aceita!!')
+        mensagem.save()
+    elif proposta.status == 'N':
+        mensagem = Mensagem.objects.create(inbox_id=inbox.id,remetente_id=1 ,
+                                        mensagem='Sua proposta foi negada!!')
+        mensagem.save()
