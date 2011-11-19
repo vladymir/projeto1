@@ -3,33 +3,30 @@
 {% block title %}KickStart | {% endblock %}
 {% block head %}Bem vindo ao Kickstart {% endblock %}
 {% block content %}
-    {% if user.username %}
-        <p>Bem vindo {{ user.username }}!
-        	Você pode submeter uma proposta de projeto clicando no botão abaixo.
-            <a href="/proposta/new" class="signup_button round">Criar Projeto</a>
-            <br>Caso queira verificar alguma proposta submetida anteriormente, basta
-            clicar em <a href="/perfil/"><em>Meu Perfil</em></a></p>
-    {% else %}
-        <p>É necessário <a href="/login">entrar</a> em sua conta para acessar nosso serviço.
-        <br><br>Caso ainda não tenha cadastro clique no botão abaixo
-        para criar o seu.</p>
-        <a href="/registrar" class="signup_button round">Cadastre-se agora!</a>
-    {% endif %}	
-{% endblock %}
-{% block extra %}
-	{% for proposta in propostas %}
+    {% for proposta in propostas %}
 	<div class="round_box">
-		<p class="title"><a href='/propostas/{{ proposta.id }}'>{{ proposta }}</a></p>
-		<img alt="imgProj" src="{%get_media_prefix%}projeto.jpg">
-		<div>
+		<a href='/propostas/{{ proposta.id }}'>
+		<img class="demo_img" alt="imgProj" src="{%get_media_prefix%}projeto.jpg">
+		<p class="title">{{ proposta }}</a></p>
+		<div class="box_content">
 			<h4>Descrição</h4>
+			<br>
 			<p class="description"> {{proposta.get_resumo}}...</p>
-			<h4>Categoria</h4>
-			<p class="description"> {{proposta.categoria}}</p>
-			<h4>Valor Necessário</h4>
-			<p class="description"> R${{proposta.quanto}},00 </p>
+			
+			<h4>Progresso</h4>
+			<br>
+			<div class="progresso_total round">
+				<div class="progresso_atual round" style="width: 30%;"></div>
+			</div>
+			<p> ARRECADADO: 30% | META: R${{proposta.quanto}},00 </p>
+			
 		</div>
 	</div>
-
 	{% endfor %}
+	
+{% endblock %}
+{% block extra %}
+	
+
+	
 {% endblock %}

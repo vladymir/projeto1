@@ -31,7 +31,6 @@ class PropostaForm(forms.ModelForm):
                          ('Escrita', 'Escrita'), ('Jogos', 'Jogos'),
                          ('Comida', 'Comida'), ('Moda', 'Moda')) 
     
-    como_descobriu = forms.CharField(max_length=100, required=False)
     o_que = forms.CharField(label="Descrição do projeto", widget=forms.Textarea({'rows':10, 'cols': 70,}))
     recompensas = forms.CharField( widget=forms.Textarea({'rows':12, 'cols': 70,}))
     mais_infos = forms.CharField(label="Mais Informações", widget=forms.Textarea({'rows':8, 'cols': 70,}))

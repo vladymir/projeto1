@@ -29,7 +29,7 @@ PROPOSTA_STATUS = (
 )
 class Proposta(models.Model):
     usuario_criador = models.ForeignKey(User)
-    titulo = models.CharField(max_length=70)
+    titulo = models.CharField(max_length=60)
     o_que = models.CharField(max_length=700)
     recompensas = models.CharField(max_length=1000)
     mais_infos = models.CharField(max_length=700)

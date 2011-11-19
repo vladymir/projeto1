@@ -1,12 +1,31 @@
 {% extends "base.html" %}
 {% load url from future %}
-
+{% block menubar %} 
+<div id="menubar">
+				<ul id="menu">
+					<!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+					<li><a href="/">Início</a></li>
+					<li><a href="/Categorias">Procurar Projetos</a></li>
+					{% if user.is_authenticated %}
+					<li><a id="user_link" href="/mensagens/">Caixa de Mensagens</a></li>
+					<li><a id="user_link" href="/proposta/new">Criar Projeto</a></li>
+					<li><a id="user_link" href="/logout">Sair</a></li>
+					{% else %}
+					<li><a id="user_link" href="/login">Entrar</a></li>
+					<li><a id="user_link" href="/registrar/">Cadastrar</a></li>
+					{%endif %}
+					<li><a href="/ajuda"> Ajuda </a></li>
+				</ul>
+			</div>
+{% endblock %}
 {% block head %} Bem vindo ao seu Perfil {% endblock %}
 {% block content %}
-	<br> Lista de propostas enviadas:</br>
+<div class="big_round_box">
+	<h3> Lista de propostas enviadas:</h3>
 	<ul>
 		{% for proposta in propostas %}
 		<li> <a href='/propostas/{{ proposta.id }}'>{{ proposta }} </li>
 		{% endfor %}
 	</ul>
+</div>
 {% endblock %}
