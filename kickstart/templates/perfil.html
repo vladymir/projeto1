@@ -5,7 +5,7 @@
 				<ul id="menu">
 					<!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
 					<li><a href="/">Início</a></li>
-					<li><a href="/Categorias">Procurar Projetos</a></li>
+					<li><a href="/categorias">Procurar Projetos</a></li>
 					{% if user.is_authenticated %}
 					<li><a id="user_link" href="/mensagens/">Caixa de Mensagens</a></li>
 					<li><a id="user_link" href="/proposta/new">Criar Projeto</a></li>
@@ -21,11 +21,23 @@
 {% block head %} Bem vindo ao seu Perfil {% endblock %}
 {% block content %}
 <div class="big_round_box">
+	<h3> Dados do Perfil</h3>
+	<ul>
+		<li><h4>Nome: </h4> {{perfil.nome}} {{perfil.sobrenome}}</li>
+		<li><h4>Nome de usuário: </h4> {{user}}</li>
+		<li><h4>Email: </h4> {{user.email}}</li>
+		<li><h4>Telefone: </h4> {{perfil.telefone}}</li>
+		<li><h4>Data de Nascimento: </h4> {{perfil.nascimento}}</li>
+	</ul>
 	<h3> Lista de propostas enviadas:</h3>
 	<ul>
-		{% for proposta in propostas %}
-		<li> <a href='/propostas/{{ proposta.id }}'>{{ proposta }} </li>
-		{% endfor %}
+		{% if propostas %}
+			{% for proposta in propostas %}
+			<li> <a href='/propostas/{{ proposta.id }}'>{{ proposta }} </li>
+			{% endfor %}
+		{% else %}
+			Nenhuma proposta enviada
+		{% endif %}
 	</ul>
 </div>
 {% endblock %}

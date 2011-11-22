@@ -191,8 +191,9 @@ ul#menu li a:hover,ul#menu li.selected a,ul#menu li.selected a:hover {
 	width: 900px;
 	overflow: hidden;
 	margin: 0 auto 0 auto;
-	padding: 20px 24px 20px 37px;
-	background: #FFF url(meadia/content.png) repeat-y;
+	padding: 20px 25px 20px 60px;
+	background: #FFF url(media/content.png) repeat-y;
+	background-position: center;
 }
 
 .sidebar {
@@ -224,7 +225,7 @@ ul#menu li a:hover,ul#menu li.selected a,ul#menu li.selected a:hover {
 }
 
 #content {
-	width: 900px;
+	width: 860px;
 }
 
 #content ul {
@@ -362,20 +363,20 @@ table tr td {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	box-shadow: 0 0 6px #888888;
-	-moz-box-shadow: 0 0 6px #888888;
-	-webkit-box-shadow: 0 0 6px #888888;
-	background: #667F03 url("media/bg.jpg");
+	box-shadow: 0 0 6px #AA8888;
+	-moz-box-shadow: 0 0 6px #AA8888;
+	-webkit-box-shadow: 0 0 6px #AA8888;
+	background: #CFFFB0;
 	background-position: center;
 	color: #333;
 }
 
 .round_box {
-	height: 250px;
+	height: 270px;
 	width: 375px;
 	float: left;
 	padding: 10px;
-	margin: 0px 25px; margin-bottom : 30px;
+	margin: 0px 17px 30px;
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;

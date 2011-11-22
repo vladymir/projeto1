@@ -1,3 +1,5 @@
+#coding: utf-8
+
 # Create your views here.
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, Http404
@@ -10,13 +12,13 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 
 from kickstart.autenticacao.forms import LoginForm, PropostaForm, RegistroForm
-from kickstart.autenticacao.models import Proposta, Inbox
+from kickstart.autenticacao.models import Proposta, Inbox, Perfil, Endereco
 import datetime
 
 def inicio(request):
-    qnt_propst_listadas = 5
+    qnt_propst_listadas = 6
     propostas = Proposta.objects.all()
-    ultimas_propostas = propostas.order_by('data_envio')[:qnt_propst_listadas]
+    ultimas_propostas = propostas.order_by('data_envio')[:qnt_propst_listadas].reverse()
     variables = Context({'user': request.user, 'propostas' : ultimas_propostas})
     return render_to_response('inicio.html', variables)
 
@@ -40,7 +42,6 @@ def pagina_ver_mensagem(request, identificador):
     variables = Context({'user': user, 'mensagem' : mensagem})
     return render_to_response('ver_mensagem.html', variables)
     
-@login_required
 def pagina_ver_proposta(request, identificador):
     try:
         ident = int(identificador)
@@ -49,15 +50,16 @@ def pagina_ver_proposta(request, identificador):
     
     user = request.user
     
-    proposta = user.proposta_set.get(id=ident)
+    proposta = Proposta.objects.get(id=ident)
     variables = Context({'user': user, 'proposta' : proposta})
     return render_to_response('ver_proposta.html', variables)
     
 def pagina_perfil(request):
     if request.user.is_authenticated():
         user = request.user
+        perfil = user.get_profile()
         propostas = user.proposta_set.all()
-        variables = Context({ 'user': user , 'propostas':propostas })
+        variables = Context({ 'perfil' : perfil, 'user': user , 'propostas':propostas })
         return render_to_response('perfil.html', variables)
     else:
         return HttpResponseRedirect('/registrar/')
@@ -110,8 +112,26 @@ def pagina_registrar(request):
                 user = User.objects.create_user(
                         username=form.cleaned_data['nome_usuario'],
                         password=form.cleaned_data['senha1'],
-                        email=form.cleaned_data['email']
+                        email=form.cleaned_data['email'],
                         )
+                
+                endereco = Endereco()
+                endereco.rua = form.cleaned_data['rua']
+                endereco.numero = form.cleaned_data['numero']
+                endereco.complemento = form.cleaned_data['complemento']
+                endereco.cidade = form.cleaned_data['cidade']
+                endereco.estado = form.cleaned_data['estado']
+                endereco.save()
+                
+                perfil = Perfil()
+                perfil.nome = form.cleaned_data['nome']
+                perfil.sobrenome = form.cleaned_data['sobrenome']
+                perfil.nascimento = form.cleaned_data['nascimento']
+                perfil.telefone = form.cleaned_data['telefone']
+                perfil.endereco = endereco
+                perfil.user = user
+                perfil.save()
+
                 inbox = Inbox()
                 inbox.usuario_criador = user
                 inbox.save()
@@ -136,3 +156,17 @@ def pagina_registrar(request):
 def ajuda(request):
     variables = Context({'user': request.user})
     return render_to_response('ajuda.html', variables)
+
+def categorias(request):
+    categorias = ['Outra', 'Música', 'Desenho', 'Dança', 'Vídeo', 'Fotografia',
+                  'Outras Artes', 'Tecnologia', 'Escrita', 'Jogos', 'Comida',
+                  'Moda']
+    variables = Context({'categorias' : categorias, 'user': request.user})
+    return render_to_response('categorias.html', variables)
+    
+def ver_categoria(request, categoria):
+    propostas = Proposta.objects.filter(categoria=categoria)
+    
+    variables = Context({'categoria' : categoria, 'propostas' : propostas,
+                          'user': request.user})
+    return render_to_response('ver_categoria.html', variables)

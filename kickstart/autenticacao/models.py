@@ -5,24 +5,21 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Usuario(User):
-    def __unicode__(self):
-        return self.first_name + ' ' + self.last_name
-
 class Endereco(models.Model):
-    rua = models.CharField(max_length=200)
+    rua = models.CharField(max_length=100)
     numero = models.IntegerField()
-    complemento = models.CharField(max_length=20)
+    complemento = models.CharField(max_length=20, default="", null=True)
     cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=2)
 
 class Perfil(models.Model):
-    nascimento = models.DateField()
     nome = models.CharField(max_length=20)
     sobrenome = models.CharField(max_length=20)
+    nascimento = models.DateField()
     endereco = models.ForeignKey(Endereco)
-    usuario = models.OneToOneField(User)
-    contato = models.CharField(max_length=80)
+    telefone = models.CharField(max_length=20)
+    user = models.ForeignKey(User,
+                              unique=True, related_name='%(class)s_user')
 
 PROPOSTA_STATUS = (
     ('N', 'Negada'),
@@ -39,7 +36,7 @@ class Proposta(models.Model):
     quanto = models.IntegerField()
     contato = models.CharField(max_length=80)
     status = models.CharField(max_length=1, choices=PROPOSTA_STATUS)
-    data_envio = models.DateTimeField("data de publicação")
+    data_envio = models.DateTimeField("Data de publicação")
 
     def __unicode__(self):
         return self.titulo
@@ -48,7 +45,7 @@ class Proposta(models.Model):
         return self.o_que[0:120]
 
 class Projeto(models.Model):
-    usuario_criador = models.ForeignKey(Usuario)
+    usuario_criador = models.ForeignKey(User)
     proposta = models.ForeignKey(Proposta)
     post = models.CharField(max_length=1000)
 
@@ -56,7 +53,7 @@ class Projeto(models.Model):
         return self.post
 
 class Doacao(models.Model):
-    usuario_doador = models.ForeignKey(Usuario)
+    usuario_doador = models.ForeignKey(User)
     projeto = models.ForeignKey(Projeto)
     valor = models.IntegerField()
 
@@ -82,7 +79,7 @@ class Mensagem(models.Model):
         return self.remetente.email
 
 # Create your models here.
-from kickstart.autenticacao.models import Proposta
+
 @receiver(post_save, sender=Proposta)
 def my_handler(sender, **kwargs):
     proposta = kwargs['instance']

@@ -1,3 +1,5 @@
+#coding: utf-8
+
 from django.conf.urls.defaults import patterns, include, url
 from kickstart.autenticacao import views
 # Uncomment the next two lines to enable the admin:
@@ -26,4 +28,6 @@ urlpatterns = patterns('',
     url(r'^ajuda/', views.ajuda),
     url(r'^mensagem/(\d+)/$', views.pagina_ver_mensagem),
     url(r'^mensagens/$', views.pagina_mensagem),
+    url(r'^categorias/$', views.categorias),
+    url(r'^categorias/(\w+)/', views.ver_categoria)
 )

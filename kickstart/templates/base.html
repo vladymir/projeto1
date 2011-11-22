@@ -6,7 +6,8 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>KickStart - Ponta-pe Inicial | {% block title %}
-	{%endblock %}</title> {% block style %} {% load static %}
+	{%endblock %}</title> 
+{% block style %} {% load static %}
 <link href="{% get_static_prefix %}estilo.css" type="text/css"
 	rel="stylesheet" media="screen" />
 {% endblock style %}
@@ -29,7 +30,7 @@
 				<ul id="menu">
 					<!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
 					<li><a href="/">Início</a></li>
-					<li><a href="/Categorias">Procurar Projetos</a></li>
+					<li><a href="/categorias">Procurar Projetos</a></li>
 					{% if user.is_authenticated %}
 					<li><a id="user_link" href="/perfil/">Meu Perfil</a></li> 
 					<li><a id="user_link" href="/proposta/new">Criar Projeto</a></li>

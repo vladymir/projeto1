@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}KickStart | Categorias {% endblock %}
+{% block head %} Encontre projetos {% endblock %}
+{% block content %}
+    {% for categoria in categorias %}
+	<div class="big_round_box">
+		<a href='/categorias/{{ categoria }}'>
+		<img class="demo_img" alt="imgProj" src="{%get_media_prefix%}projeto.jpg">
+		<p class="title">{{ categoria }}</a></p>
+	</div>
+	{% endfor %}
+{% endblock %}

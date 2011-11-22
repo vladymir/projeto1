@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}KickStart | {% endblock %}
-{% block head %}Bem vindo ao Kickstart {% endblock %}
+{% block title %}KickStart | {{categoria}} {% endblock %}
+{% block head %} {{categoria}} {% endblock %}
 {% block content %}
+	{% if propostas %}
     {% for proposta in propostas %}
 	<div class="round_box">
 		<a href='/propostas/{{ proposta.id }}'>
@@ -19,9 +20,10 @@
 				<div class="progresso_atual round" style="width: 30%;"></div>
 			</div>
 			<p> ARRECADADO: 30% | META: R${{proposta.quanto}},00 </p>
-			
 		</div>
 	</div>
 	{% endfor %}
-	
+	{% else %}
+		<p>Nenhuma proposta nessa categoria.</p>
+	{% endif %}
 {% endblock %}
