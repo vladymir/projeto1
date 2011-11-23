@@ -37,12 +37,23 @@ class Proposta(models.Model):
     contato = models.CharField(max_length=80)
     status = models.CharField(max_length=1, choices=PROPOSTA_STATUS)
     data_envio = models.DateTimeField("Data de publicação")
+    arrecadado = models.IntegerField(default=0)
+    percentual = models.FloatField(default=0)
 
     def __unicode__(self):
         return self.titulo
     
     def get_resumo(self):
         return self.o_que[0:120]
+    
+    def get_percentual(self):
+        return "%.2f" % (100*float(self.arrecadado) / self.quanto)
+    
+    def aumentar_arrecadado(self, valor):
+        self.arrecadado += int(valor)
+        print self.arrecadado
+        self.percentual = self.get_percentual()
+    
 
 class Projeto(models.Model):
     usuario_criador = models.ForeignKey(User)

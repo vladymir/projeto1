@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 from kickstart.autenticacao.forms import LoginForm, PropostaForm, RegistroForm
 from kickstart.autenticacao.models import Proposta, Inbox, Perfil, Endereco
 import datetime
+from kickstart import autenticacao
 
 def inicio(request):
     qnt_propst_listadas = 6
@@ -49,10 +50,21 @@ def pagina_ver_proposta(request, identificador):
         raise Http404()
     
     user = request.user
-    
-    proposta = Proposta.objects.get(id=ident)
-    variables = Context({'user': user, 'proposta' : proposta})
-    return render_to_response('ver_proposta.html', variables)
+    if request.method == 'POST':
+        form = autenticacao.forms.DoarForm(request.POST)
+        if form.is_valid():
+            proposta = Proposta.objects.get(id=ident)
+            proposta.aumentar_arrecadado(form.cleaned_data['valor'])
+            proposta.save()
+            return HttpResponseRedirect('/sucesso')
+        return HttpResponseRedirect('/')
+    else:
+        form = autenticacao.forms.DoarForm()
+        proposta = Proposta.objects.get(id=ident)
+        variables = RequestContext(request, 
+                                   {'user': user, 'proposta' : proposta,
+                                     'form' : form})
+        return render_to_response('ver_proposta.html', variables)
     
 def pagina_perfil(request):
     if request.user.is_authenticated():
@@ -95,7 +107,8 @@ def pagina_proposta(request):
                 novaProposta.status = 'P'
                 novaProposta.data_envio = datetime.date.today()
                 novaProposta.save()
-            return HttpResponseRedirect('/inicio/')
+                return HttpResponseRedirect('/sucesso')
+            return HttpResponseRedirect('/')
             #return HttpResponse('Proposta Submetida com sucesso.')
         else:
             form = PropostaForm()
@@ -142,10 +155,8 @@ def pagina_registrar(request):
                 if user is not None:
                     if user.is_active:
                         login(request, user)
-
-                return HttpResponseRedirect('/')
-            #return HttpResponse(user.username + 'Registrado Com Sucesso')
-                    
+                return HttpResponseRedirect('/sucesso')
+            return HttpResponseRedirect('/')                    
         else:
             form = RegistroForm()
             variables = RequestContext(request, { 'form': form })
@@ -156,6 +167,10 @@ def pagina_registrar(request):
 def ajuda(request):
     variables = Context({'user': request.user})
     return render_to_response('ajuda.html', variables)
+
+def sucesso(request):
+    variables = Context({'user': request.user})
+    return render_to_response('sucesso.html', variables)
 
 def categorias(request):
     categorias = ['Outra', 'Música', 'Desenho', 'Dança', 'Vídeo', 'Fotografia',

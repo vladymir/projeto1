@@ -418,6 +418,15 @@ table tr td {
 	margin-right: 30px;
 }
 
+.cat_img {
+	width: 40px;
+	height: 20px;
+	float: left;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
 .progresso_total {
 	background-color: #555;
 	width: 200px;

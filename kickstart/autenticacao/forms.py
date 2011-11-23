@@ -1,6 +1,7 @@
 #coding: utf-8
 
 from django import forms
+from django.forms.widgets import RadioSelect
 from kickstart.autenticacao.models import Proposta
 
 class RegistroForm(forms.Form):
@@ -30,6 +31,11 @@ class RegistroForm(forms.Form):
     complemento = forms.CharField(max_length=20, required=False)
     cidade = forms.CharField(max_length=100)
     estado = forms.CharField(max_length=2)
+    
+class DoarForm(forms.Form):
+    ESCOLHA_VALOR = ((1, 'R$ 1,00'), (5, 'R$ 5,00'), (10, 'R$ 10,00'),
+                     (25, 'R$ 25,00'), (50, 'R$ 50,00'), (100, 'R$ 100,00'))
+    valor = forms.ChoiceField(widget=RadioSelect, choices=ESCOLHA_VALOR)
     
     
 
@@ -63,4 +69,4 @@ class PropostaForm(forms.ModelForm):
     
     class Meta:
         model = Proposta
-        exclude = ('status', 'usuario_criador', 'data_envio',)
+        exclude = ('status', 'usuario_criador', 'data_envio', 'arrecadado', 'percentual')

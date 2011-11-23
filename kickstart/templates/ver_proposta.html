@@ -6,7 +6,23 @@
             <h4>Recompensas:</h4> {{ proposta.recompensas }}<br>
             <h4>Mais informações sobre o projeto:</h4> {{ proposta.mais_infos }}<br>
             <h4>Categoria:</h4> {{ proposta.categoria }}<br>
-            <h4>Capital necessário para iniciar projeto:</h4> {{ proposta.quanto }}<br>
+            <br>
+            <h4>Capital necessário para iniciar projeto:</h4> R${{ proposta.quanto }},00<br>
+            <h4>Arrecadado até o momento:</h4> R${{proposta.arrecadado }},00<br>
+            <br>
             <h4>Contato:</h4> {{proposta.contato}}
+            <br><br>
+            <h3>Faça sua doação</h3>
+            <form method="post" action=".">
+            {% csrf_token %}
+			   	{% for field in form %}
+			        <div class="fieldWrapper">
+			            {{ field.errors }}
+			            <h4>{{ field.label_tag }}:</h4>
+			            {{ field }}<br>
+			        </div>
+			    {% endfor %}
+			    <input type="submit" value="Doar" />
+			</form>
             
 {% endblock %}
